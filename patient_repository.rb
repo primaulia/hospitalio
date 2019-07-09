@@ -18,6 +18,7 @@ class PatientRepository
     patient.id = @next_id
     @patients << patient
     store_csv
+    @next_id += 1
   end
 
   private
