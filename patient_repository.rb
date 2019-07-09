@@ -6,8 +6,7 @@ class PatientRepository
   def initialize(file_path)
     @patients = []
     @csv_file_path = file_path
-    @next_id = 0
-
+    @next_id = 1
     load_csv
   end
 
@@ -16,9 +15,7 @@ class PatientRepository
   end
 
   def add_patient(patient) # patient => patient instance
-    @next_id += 1
     patient.id = @next_id
-
     @patients << patient
     store_csv
   end
@@ -35,7 +32,7 @@ class PatientRepository
       @patients << Patient.new(row)
     end
 
-    # binding.pry
+    @next_id = @patients.last.id + 1
   end
 
   def store_csv
@@ -54,8 +51,6 @@ class PatientRepository
         csv << [id, name, blood_type, cured, age]
       end
     end
-
-    # binding.pry
   end
 end
 

@@ -7,8 +7,7 @@ class RoomRepository
   def initialize(file_path)
     @rooms = []
     @csv_file_path = file_path
-    @next_id = 0
-
+    @next_id = 1
     load_csv
   end
 
@@ -17,7 +16,6 @@ class RoomRepository
   end
 
   def create_room(room)
-    @next_id += 1
     room.id = @next_id
     @rooms << room
     store_csv
@@ -34,6 +32,8 @@ class RoomRepository
       row[:vacancy]  = row[:vacancy] == 'true' # Convert column to Boolean
       @rooms << Room.new(row)
     end
+
+    @next_id = @rooms.last.id + 1
   end
 
   def store_csv
